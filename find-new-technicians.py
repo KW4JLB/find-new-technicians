@@ -136,14 +136,14 @@ def get_callsigns_by_zipcode(zip_code):
   )
 
   log("Searching for Callsigns in Georgia")
-  ga_calls=en[en['city'] == 'GA']
+  ga_calls=en[en['state'] == 'GA']
 
   log("Finding Callsigns in Zip Code: " + str(zip_code))
-  zip_calls = ga_calls[ga_calls['state'].str.contains(str(zip_code))]
+  zip_calls = ga_calls[ga_calls['zip'].str.contains(str(zip_code))]
   
   return zip_calls
 
-def search_calls(zip_calls):
+def search_calls(zipcalls):
   log("Collecting Callsign Information") 
   hd_headers = ['record_type', 'unique_system_id', 'uls_file_no', 'ebf_no', 'call', 'license_status', 'radio_service_code', 'grant_date', 'expired_date', 'cancellation_date', 'eligibility_rule_num', 'reserved', 'alien', 'alien_government', 'alien_corporation', 'alien_officer', 'alien_control', 'revoked', 'convicted', 'adjudged', 'ara', 'common_carrier', 'non_common_carrier', 'private_comm', 'fixed', 'mobile', 'radiolocation', 'satellite', 'developmental_or_sta', 'interconnected_service', 'certifier_first_name', 'certifier_mi', 'certifier_last_name', 'certifier_suffix', 'certifier_title', 'female', 'african_american', 'native_american', 'hawaiian', 'asian', 'white', 'hispanic', 'effective_date', 'last_action_date', 'auction_id', 'reg_stat_broad_serv', 'band_manager', 'type_serv', 'alien_ruling', 'licensee_name_change', 'whitespace_indicator', 'op_performace_requirement_choice', 'op_performace_requirement_answer', 'discontinuation_of_service', 'regulatory_compliance', '900mhz_eligible_certification', '900mhz_transition_plan_certification', '900mhz_return_spectrum_certification', '900mhz_payment_certification']
   hd_dtypes = {
@@ -217,8 +217,8 @@ def search_calls(zip_calls):
     na_values = "0"
   )
 
-  log("Filtering results for Technician Licenses")
-  technicians=hd[['call', 'license_status', 'grant_date', 'expired_date', 'cancellation_date', 'certifier_first_name', 'certifier_mi', 'certifier_last_name', 'certifier_suffix']].query('license_status == "T"')
+  log("Filtering results for Active Licenses")
+  technicians=hd[['call', 'license_status', 'grant_date', 'expired_date', 'cancellation_date', 'certifier_first_name', 'certifier_mi', 'certifier_last_name', 'certifier_suffix']].query('license_status == "A"')
 
   zip_calls_headers = ['record_type', 'unique_system_id', 'uls_file_no', 'ebf_no', 'call', 'entity_type', 'license_id', 'entity_name', 'first_name', 'middle_initial', 'last_name', 'suffix', 'phone', 'fax', 'email', 'address', 'city', 'state', 'zip', 'po_box', 'attn_line', 'sgin', 'frn', 'applicant_type_code', 'applicant_type_code_other', 'status_code', 'status_date', '37ghz_license_type', 'linked_unique_system_id', 'linked_call']
   zip_calls_dtypes = {
@@ -254,16 +254,7 @@ def search_calls(zip_calls):
     'linked_call': "string"
   }
 
-  zip_calls = pd.read_csv(
-    'license_db/EN.dat',
-    header=29,
-    delimiter='|',
-    names=zip_calls_headers,
-    dtype=zip_calls_dtypes,
-    na_values = "0"
-  )
-
-  ga_technicians = technicians[['call', 'grant_date', 'expired_date', 'cancellation_date', 'certifier_first_name', 'certifier_mi', 'certifier_last_name', 'certifier_suffix']].query('call in @zip_calls.call')
+  ga_technicians = technicians[['call', 'grant_date', 'expired_date', 'cancellation_date', 'certifier_first_name', 'certifier_mi', 'certifier_last_name', 'certifier_suffix']].query('call in @zipcalls.call')
 
   return ga_technicians
 
@@ -283,9 +274,9 @@ if __name__ == "__main__":
   log('Started')
 
   args = getargs()
-  get_licenses()
-  zip_calls = get_callsigns_by_zipcode(args.zipcode[0])
-  zip_technicians = search_calls(zip_calls)
+  #get_licenses()
+  zip_calls1 = get_callsigns_by_zipcode(args.zipcode[0])
+  zip_technicians = search_calls(zip_calls1)
   filename=args.zipcode[0] + '.csv'
   final = filter_by_date(args.months[0], zip_technicians)
   final.to_csv(filename, sep='|', index=False)
