@@ -2,6 +2,10 @@
 
 **What does this PR do? What is this PR trying to solve?**
 
+### PR Checklist
+
+- [ ] I have proper PR title based on [Coventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
 ### Issues Resolved
 
 - [ ] [Issue # <Issue Title>]()
