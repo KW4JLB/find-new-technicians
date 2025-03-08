@@ -1,4 +1,4 @@
-# Unreleased
+# v1.2.0
 
 * Removed shebang interpreters
 * Updated README usage
