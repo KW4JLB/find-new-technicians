@@ -80,6 +80,8 @@ def getargs():
 
   parser.add_argument('-z', '--zipcode', nargs='+', action='store', help='What Zip Code To Search')
   parser.add_argument('-m', '--months', nargs='+', action='store', help='How Many Months from today to search for')
+  parser.add_argument('-D', '--download-only', action='store_true', help='Only Download the FCC ULS Database Files')
+  parser.add_argument('-d', '--download', action='store_true', help='Download the FCC ULS Database Files')
 
   return parser.parse_args()
 
@@ -271,14 +273,20 @@ if __name__ == "__main__":
   logger = logging.getLogger(__name__)
   logging.basicConfig(filename='uls_search.log', format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
   log_header()
-  log('Started')
-
   args = getargs()
-  get_licenses()
-  zip_calls1 = get_callsigns_by_zipcode(args.zipcode[0])
-  zip_technicians = search_calls(zip_calls1)
-  filename=args.zipcode[0] + '.csv'
-  final = filter_by_date(args.months[0], zip_technicians)
-  final.to_csv(filename, sep='|', index=False)
-
-  log('Finished')
+  if (args.download_only):
+    get_licenses()
+    exit(0)
+  else:
+    if (args.zipcode == None) or (args.months == None):
+      print('ERROR: Zipcode and Months are required!')
+      exit(1)
+    log('Started')
+    if (args.download):
+      get_licenses()
+    zip_calls1 = get_callsigns_by_zipcode(args.zipcode[0])
+    zip_technicians = search_calls(zip_calls1)
+    filename=args.zipcode[0] + '.csv'
+    final = filter_by_date(args.months[0], zip_technicians)
+    final.to_csv(filename, sep='|', index=False)
+    log('Finished')
