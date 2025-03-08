@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ## Usage
 
 ```
-usage: [-h] [-z ZIPCODE [ZIPCODE ...]] [-m MONTHS [MONTHS ...]]
+usage: [-h] [-z ZIPCODE [ZIPCODE ...]] [-m MONTHS [MONTHS ...]] [-D] [-d]
 
 Search the FCC ULS to find newly licensed individuals
 
@@ -44,6 +44,8 @@ options:
                         What Zip Code To Search
   -m MONTHS [MONTHS ...], --months MONTHS [MONTHS ...]
                         How Many Months from today to search for
+  -D, --download-only   Only Download the FCC ULS Database Files
+  -d, --download        Download the FCC ULS Database Files
 
 Developed and maintained by KW4JLB.
 ```
