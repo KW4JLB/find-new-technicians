@@ -1,7 +1,9 @@
-# find-new-technicians
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+# find-new-license-grants
 
 ## Description
-A Python Script to download the weekly FCC ULS Amateur Radio License Database, extract licenses for the state of Georgia, and then filter Technician Licenses by zipcode. 
+A Python Script to download the weekly FCC ULS Amateur Radio License Database, extract licenses for the state of Georgia, and then filter new License Grants by zipcode. 
 
 ## Installation and Usage
 
@@ -15,7 +17,7 @@ python3 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
-4. To Run the Script use the command `.\.venv\Scripts\python.exe .\find-new-technicians.py --zipcode 12345 --months 1`
+4. To Run the Script use the command `.\.venv\Scripts\python.exe .\find-new-license-grants.py -d --zipcode 12345 --months 1`
 5. When you are done, close the command prompt. 
 
 ### OS X and Linux
@@ -27,7 +29,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
-4. To Run the Script use the command `./find-new-technicians.py --zipcode 12345 --months 1`
+4. To Run the Script use the command `python3 find-new-license-grants.py -d --zipcode 12345 --months 1`
 5. When you are done, run the command `deactivate`
 6. Close the Terminal
 
