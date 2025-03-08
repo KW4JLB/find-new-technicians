@@ -274,7 +274,7 @@ if __name__ == "__main__":
   log('Started')
 
   args = getargs()
-  #get_licenses()
+  get_licenses()
   zip_calls1 = get_callsigns_by_zipcode(args.zipcode[0])
   zip_technicians = search_calls(zip_calls1)
   filename=args.zipcode[0] + '.csv'
