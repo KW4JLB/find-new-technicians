@@ -1,0 +1,4 @@
+.venv
+license_db
+uls_search.log
+*.csv
