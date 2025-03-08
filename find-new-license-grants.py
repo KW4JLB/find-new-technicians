@@ -1,11 +1,8 @@
-#!/usr/bin/env python3
-#!./.venv/Scripts/python.exe
-
 __author__ = "Jared Bloomer, KW4JLB"
 __copyright__ = "Copyright 2025, KW4JLB"
 __credits__ = ["Jared Bloomer, KW4JLB"]
 __license__ = "GPL"
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 __maintainer__ = "Jared Bloomer"
 __email__ = "kw4jlb@arrl.net"
 __status__ = "Production"

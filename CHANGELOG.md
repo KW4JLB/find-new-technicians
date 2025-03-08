@@ -4,6 +4,8 @@
 * Updated README usage
 * Added License to repo
 * Added Changelog to repo
+* Renamed `find-new-technicians.py` to `find-new-license-grants.py` for [issue #2 FIX(rename repo and script to be accurate)](https://github.com/KW4JLB/find-new-technicians/issues/2)
+* Updated wording in `README.md` to reflect rebranding for [issue #2 FIX(rename repo and script to be accurate)](https://github.com/KW4JLB/find-new-technicians/issues/2)
 
 # v1.1.0
 * Added Argument (`-D`, `--download-only`) to Only Download the FCC ULS Database files
